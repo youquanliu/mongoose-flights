@@ -1,0 +1,61 @@
+<%- include('../partials/header') %>
+
+<table class="table table-lg">
+    <thead>
+        <tr class="table-active">
+            <th scope="col">Airline</th>
+            <th scope="col">Airport</th>
+            <th scope="col">Flight No</th>
+            <th scope="col">Departs</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="table-secondary"><%= flight.airline %></td>
+            <td class="table-success"><%= flight.airport %></td>
+            <td class="table-danger"><%= flight.flightNo %></td>
+            <td class="table-primary"><%= flight.departs %></td>
+        </tr>
+    </tbody>
+</table>
+<!-- Destination section -->
+<br><br>
+
+<h2>Destination & Depature Time</h2>
+
+<form id="add-review-form" method="POST" action="/flights/<%= flight._id%>/destinations">
+    <div class="form-group">
+        <label>Destination:</label>
+        <input type="text" name="destinations"></input>
+    </div>
+    <div class="form-group">
+        <label>Depature Time:</label>
+        <input type="date" name="arrival">
+    </div>
+    <input class="btn btn-primary" type="submit" value="Add Destination">
+</form>
+
+<!-- show destination detail -->
+
+<% if (flight.destinations.length) { %>
+<table class="table table-hover table-dark">
+    <thead>
+        <tr class="bg-primary">
+            <th scope="col">Destination</th>
+            <th scope="col">Arrival Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% flight.destinations.forEach(function(d) { %>
+        <tr>
+            <td><%= d.createdAt.toLocaleDateString() %></td>
+            <td><%= d.destinations %></td>
+            <td><%= d.arrival %></td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+<% } else { %>
+<h5>No destination Yet</h5>
+<% } %>
+<%- include('../partials/footer') %>

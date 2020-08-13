@@ -1,27 +1,49 @@
 <%- include('../partials/header') %>
+<div class="warper">
+    <form id="new-form" action="/new" method="POST">
+        <!-- <div class="form-row"> -->
+        <div class="form-group row">
+            <label>AIRLINE</label>
+            <div class="col-sm-10">
+                <select class="custom-select custom-select-lg mb-3" name="airline">
+                    <option value="American">American</option>
+                    <option value="Southwest">Southwest</option>
+                    <option value="United">United</option>
+                </select>
+            </div>
+        </div>
 
-<form id="new-form" action="/new" method="POST">
+        <div class="form-group row">
+            <label>AIRPORT</label>
+            <div class="col-sm-10">
+                <select class="custom-select custom-select-lg mb-3" name="airport">
+                    <option value="DEN" selected>DEN</option>
+                    <option value="AUS">AUS</option>
+                    <option value="DFW">DFW</option>
+                    <option value="LAX">LAX</option>
+                    <option value="SAN">SAN</option>
+                </select>
+            </div>
+        </div>
 
-    <label>AIRLINE</label>
-    <select name="airline">
-        <option value="American">American</option>
-        <option value="Southwest">Southwest</option>
-        <option value="United">United</option>
-    </select>
-    <label>AIRPORT</label>
-    <select name="airport">
-        <option value="DEN" selected>DEN</option>
-        <option value="AUS">AUS</option>
-        <option value="DFW">DFW</option>
-        <option value="LAX">LAX</option>
-        <option value="SAN">SAN</option>
-    </select>
-    <label>FLIGHT NO</label>
-    <input type="number" name="flightNo">
-    <label>Release Year:</label>
-    <input type="date" name="date">
+        <div class="form-group row">
+            <label>FLIGHT NO</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="number" name="flightNo">
 
-    <input type="submit" value="Add Flight">
-</form>
+            </div>
+        </div>
 
+        <div class="form-group row">
+            <label>Release Year:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="date" name="date">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <input class="btn btn-lg btn-outline-secondary" type="submit" value="Add Flight">
+        </div>
+    </form>
+</div>
 <%- include('../partials/footer') %>

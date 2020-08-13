@@ -8,6 +8,7 @@ require('./config/database');
 var indexRouter = require('./routes/index');
 var newFlightRouter = require('./routes/new');
 var flightRouter = require('./routes/flights');
+var desRouter = require('./routes/destinations');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/flights', flightRouter);
 app.use('/', newFlightRouter);
+app.use('/', desRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
