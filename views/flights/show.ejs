@@ -1,61 +1,85 @@
 <%- include('../partials/header') %>
+<div class="showWrapper">
+    <table class="table table-lg">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">Airline</th>
+                <th scope="col">Airport</th>
+                <th scope="col">Flight No</th>
+                <th scope="col">Departs</th>
+                <th scope="col">Tickets</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="table-secondary"><%= flight.airline %></td>
+                <td class="table-success"><%= flight.airport %></td>
+                <td class="table-danger"><%= flight.flightNo %></td>
+                <td class="table-primary"><%= flight.departs %></td>
+                <%- flight.ticket.map(t => 
+                ` <td class="table-primary">${t.seat} <small>${t.price}</small></td>`
+              ).join(' $') %>
 
-<table class="table table-lg">
-    <thead>
-        <tr class="table-active">
-            <th scope="col">Airline</th>
-            <th scope="col">Airport</th>
-            <th scope="col">Flight No</th>
-            <th scope="col">Departs</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="table-secondary"><%= flight.airline %></td>
-            <td class="table-success"><%= flight.airport %></td>
-            <td class="table-danger"><%= flight.flightNo %></td>
-            <td class="table-primary"><%= flight.departs %></td>
-        </tr>
-    </tbody>
-</table>
-<!-- Destination section -->
-<br><br>
+            </tr>
+        </tbody>
+    </table>
 
-<h2>Destination & Depature Time</h2>
+    <!-- add to cast form below this comment -->
+    <form action="/flights/<%= flight._id%>/ticket" method="POST">
+        <select name="ticketId">
+            <%- ticket.map(t =>
+      `<option value="${t._id}">${t.seat}</option>`
+    ).join('');
+    %>
+        </select>
 
-<form id="add-review-form" method="POST" action="/flights/<%= flight._id%>/destinations">
-    <div class="form-group">
-        <label>Destination:</label>
-        <input type="text" name="destinations"></input>
-    </div>
-    <div class="form-group">
-        <label>Depature Time:</label>
-        <input type="date" name="arrival">
-    </div>
-    <input class="btn btn-primary" type="submit" value="Add Destination">
-</form>
+        <button type="submit">Add to ticket</button>
 
-<!-- show destination detail -->
+    </form>
 
-<% if (flight.destinations.length) { %>
-<table class="table table-hover table-dark">
-    <thead>
-        <tr class="bg-primary">
-            <th scope="col">Destination</th>
-            <th scope="col">Arrival Time</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% flight.destinations.forEach(function(d) { %>
-        <tr>
-            <td><%= d.createdAt.toLocaleDateString() %></td>
-            <td><%= d.destinations %></td>
-            <td><%= d.arrival %></td>
-        </tr>
-        <% }); %>
-    </tbody>
-</table>
-<% } else { %>
-<h5>No destination Yet</h5>
-<% } %>
+
+    <!-- Destination section -->
+    <br><br>
+
+    <h2>Destination & Depature Time</h2>
+
+    <form id="add-review-form" method="POST" action="/flights/<%= flight._id%>/destinations">
+        <div class="form-group">
+            <label>Destination:</label>
+            <input type="text" name="destinations"></input>
+        </div>
+        <div class="form-group">
+            <label>Depature Time:</label>
+            <input type="date" name="arrival">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Add Destination">
+    </form>
+    <br /><br /><br /><br /><br /><br />
+
+    <!-- show destination detail -->
+
+    <% if (flight.destinations.length) { %>
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Arrival Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% flight.destinations.forEach(function(d) { %>
+            <tr>
+                <td><%= d.createdAt.toLocaleDateString() %></td>
+                <td><%= d.destinations %></td>
+                <td><%= d.arrival %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <h5>No destination Yet</h5>
+    <% } %>
+
+</div>
 <%- include('../partials/footer') %>
